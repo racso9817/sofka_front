@@ -1,6 +1,9 @@
 # SofkaFront
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.10.
+Run `npm install` to install all the dependencies of the project.
+Run `npm start` to start the project.
+Run `npm test` to run the tests of the project.
 
 ## Development server
 
