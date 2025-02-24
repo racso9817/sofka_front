@@ -1,0 +1,12 @@
+<nav class="navbar text-color">
+  <div class="navbar-brand">
+    <a href="/">Banco</a>
+    <button class="navbar-toggler text-color" (click)="toggleNavbar()">☰</button>
+  </div>
+  <div class="navbar-menu" [class.is-active]="navbarOpen">
+    <ul>
+      <li><a href="/">Productos</a></li>
+      <li><a href="/agregar">Agregar Producto</a></li>
+    </ul>
+  </div>
+</nav>

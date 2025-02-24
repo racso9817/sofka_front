@@ -1,0 +1,72 @@
+<div class="container">
+  <div class="search-container">
+    <input type="text" placeholder="Search..." (input)="onSearch($event.target)">
+  </div>
+
+  <div class="table-container">
+    <div *ngIf="isLoading; else productList">
+      <ngx-skeleton-loader count="5" appearance="circle"></ngx-skeleton-loader>
+      <ngx-skeleton-loader count="5" appearance="line"></ngx-skeleton-loader>
+    </div>
+
+    <ng-template #productList>
+      <table class="text-color">
+        <thead>
+        <tr>
+          <th style="display: none;"></th>
+          <th>Logo</th>
+          <th>Nombre del producto</th>
+          <th>Descripción</th>
+          <th>Fecha de liberación</th>
+          <th>Fecha de reestructuración</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let product of filteredProducts">
+          <td style="display: none;">{{ product.id }}</td>
+          <td>
+            <img [src]="product.logo" alt="{{ product.name }}" loading="lazy"/>
+          </td>
+          <td>{{ product.name }}</td>
+          <td>{{ product.description }}</td>
+          <td>{{ product.date_revision|date:"dd/MM/yyyy" }}</td>
+          <td>{{ product.date_release|date:"dd/MM/yyyy" }}</td>
+          <td>
+            <div class="menu-container">
+              <button class="menu-button" (click)="toggleMenu(product.id)">⋮</button>
+              <div class="menu" *ngIf="isMenuOpen(product.id)">
+                <button (click)="editProduct(product.id)">Editar</button>
+                <button (click)="askDelete(product.name, product.id)">Eliminar</button>
+              </div>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </ng-template>
+  </div>
+
+  <div class="footer-container">
+    <div class="footer-text">
+      <p class="text-color">{{ dataLength }} Resultado(s).</p>
+    </div>
+    <div class="footer-select text-color">
+      <select (change)="onNumberResultsChange($event.target)">
+        <option value="5" selected>5</option>
+        <option value="10">10</option>
+        <option value="20">20</option>
+      </select>
+    </div>
+  </div>
+
+</div>
+
+<app-elements
+  *ngIf="showModal"
+  [message]="modalMessage"
+  [showAcceptCancel]="showAcceptCancel"
+  (close)="closeModal()"
+  (accept)="acceptModal()"
+  (cancel)="cancelModal()"
+/>
